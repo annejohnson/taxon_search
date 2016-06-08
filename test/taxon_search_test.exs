@@ -2,11 +2,9 @@ defmodule TaxonSearchTest do
   use ExUnit.Case
   doctest TaxonSearch
 
-  test "the truth" do
-    assert 1 + 1 == 2
-  end
-
-  test "best match" do
-    assert TaxonSearch.best_match("barraband") == "polytelis"
+  test "get_species_name" do
+    assert(
+      TaxonSearch.get_species_name("maximilian pionus") == "Pionus maximiliani"
+    )
   end
 end
