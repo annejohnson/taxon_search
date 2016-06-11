@@ -1,4 +1,4 @@
-# TaxonSearch
+# TaxonSearch [![Hex.pm](https://img.shields.io/hexpm/v/taxon_search.svg?style=flat-square)](https://hex.pm/packages/taxon_search)
 
 TaxonSearch is a tool for looking up species names by common name in Elixir.
 
@@ -19,4 +19,8 @@ iex> TaxonSearch.get_species_names("Senegal parrot")
 ["Poicephalus senegalus", "Poicephalus versteri"]
 ```
 
-[Go here](https://hexdocs.pm/taxon_search) for full documentation.
+[View full documentation here.](https://hexdocs.pm/taxon_search)
+
+## Contributing
+
+Bug reports and pull requests are welcome on GitHub at https://github.com/annejohnson/taxon_search. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
