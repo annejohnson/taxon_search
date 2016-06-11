@@ -1,8 +1,8 @@
 defmodule TaxonSearch do
   def get_species_name(common_name) do
-    results = get_results(common_name)
-    filtered_results = filter_by_common_name(results, common_name)
-    result = List.first(filtered_results) || List.first(results)
+    results = get_results(common_name) |> filter_by_name_type
+    common_name_matches = filter_by_common_name(results, common_name)
+    result = List.first(common_name_matches) || List.first(results)
     case result do
       %{"species" => species} -> species
       _ -> nil
@@ -12,6 +12,12 @@ defmodule TaxonSearch do
   def filter_by_common_name(results, common_name) do
     Enum.filter(results, fn(result) ->
       matching_common_name?(result, common_name)
+    end)
+  end
+
+  def filter_by_name_type(results) do
+    Enum.filter(results, fn(result) ->
+      result["nameType"] =~ ~r/scientific/i
     end)
   end
 
