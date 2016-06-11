@@ -1,6 +1,27 @@
 defmodule TaxonSearch do
+  @moduledoc """
+  Provides a function `get_species_names/1` to get species names associated
+  with the specified `common_name`.
+  """
+
   alias TaxonSearch.{StringUtils, Api}
 
+  @doc """
+  Gets species names associated with the `common_name`.
+
+  ## Parameters
+
+    - common_name: String that represents the common name of the species
+      you're interested in.
+
+  ## Examples
+
+      iex> TaxonSearch.get_species_names("Amazon parrot")
+      ["Amazona albifrons", "Amazona auropalliata", "Amazona xantholora", "Amazona farinosa"]
+
+      iex> TaxonSearch.get_species_names("moose")
+      ["Alces americanus", "Cervalces scotti"]
+  """
   def get_species_names(common_name) do
     all_results = Api.get_results(common_name)
     filtered_results = filter_by_common_name(all_results, common_name)
