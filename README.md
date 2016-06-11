@@ -12,10 +12,11 @@ def deps do
 end
 ```
 
-2. Ensure taxon_search is started before your application:
+## Usage
 
 ```elixir
-def application do
-  [applications: [:taxon_search]]
-end
+iex> TaxonSearch.get_species_names("Senegal parrot")
+["Poicephalus senegalus", "Poicephalus versteri"]
 ```
+
+[Go here](https://hexdocs.pm/taxon_search) for full documentation.
