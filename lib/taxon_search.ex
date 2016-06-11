@@ -1,12 +1,17 @@
 defmodule TaxonSearch do
+  alias TaxonSearch.Utils
+
   def get_species_name(common_name) do
-    results = get_results(common_name) |> filter_by_name_type
-    common_name_matches = filter_by_common_name(results, common_name)
-    result = List.first(common_name_matches) || List.first(results)
-    case result do
+    case get_result(common_name) do
       %{"species" => species} -> species
       _ -> nil
     end
+  end
+
+  def get_result(common_name) do
+    all_results = get_results(common_name) |> filter_by_name_type
+    common_name_matches = filter_by_common_name(all_results, common_name)
+    List.first(common_name_matches) || List.first(all_results)
   end
 
   def filter_by_common_name(results, common_name) do
@@ -22,20 +27,14 @@ defmodule TaxonSearch do
   end
 
   def matching_common_name?(result, common_name) do
-    name_maps = result["vernacularNames"]
-    common_name_regexes = Enum.map(
-      Regex.split(~r/\W+/, common_name),
-      fn(name_component) -> ~r/#{name_component}/i end
-    )
+    name_maps = result["vernacularNames"] || []
+    common_name_regexes = Utils.get_token_regexes(common_name)
     matching_english_name? = fn(name_map) ->
       name_map["language"] == "eng" &&
-        Enum.all?(common_name_regexes, fn(name_regex) ->
-          name_map["vernacularName"] =~ name_regex
-        end)
+        Utils.all_regexes_match?(common_name_regexes, name_map["vernacularName"])
     end
 
-    length(name_maps) > 0 &&
-      Enum.any?(name_maps, matching_english_name?)
+    Enum.any?(name_maps, matching_english_name?)
   end
 
   def get_results(common_name) do
