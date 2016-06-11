@@ -1,14 +1,17 @@
 defmodule TaxonSearch.Utils do
   def get_token_regexes(str) do
-    Enum.map(
-      Regex.split(~r/\W+/, str),
-      fn(str_token) -> ~r/#{str_token}/i end
-    )
+    get_string_tokens(str) |> Enum.map(&get_token_regex/1)
   end
 
   def all_regexes_match?(regexes, str) do
-    Enum.all?(regexes, fn(regex) ->
-      str =~ regex
-    end)
+    Enum.all?(regexes, fn(regex) -> str =~ regex end)
+  end
+
+  def get_string_tokens(str) do
+    Regex.split(~r/\W+/, str)
+  end
+
+  def get_token_regex(str) do
+    ~r/#{str}/i
   end
 end

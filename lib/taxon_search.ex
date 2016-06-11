@@ -9,7 +9,8 @@ defmodule TaxonSearch do
   end
 
   defp get_result(common_name) do
-    all_results = get_results(common_name) |> filter_by_name_type
+    all_results = get_results(common_name)
+                  |> filter_by_name_type
     common_name_matches = filter_by_common_name(all_results, common_name)
     List.first(common_name_matches) || List.first(all_results)
   end
@@ -38,9 +39,10 @@ defmodule TaxonSearch do
   end
 
   defp get_results(common_name) do
-    Poison.decode!(
-      make_species_search_request(common_name).body
-    )["results"]
+    response_body = make_species_search_request(common_name).body
+                    |> Poison.decode!
+
+    response_body["results"]
   end
 
   defp make_species_search_request(query) do
