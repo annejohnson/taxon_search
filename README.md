@@ -1,6 +1,6 @@
 # TaxonSearch [![Hex.pm](https://img.shields.io/hexpm/v/taxon_search.svg?style=flat-square)](https://hex.pm/packages/taxon_search)
 
-TaxonSearch is a tool for looking up species names by common name in Elixir.
+TaxonSearch is a tool for looking up species names by common name in Elixir. It is powered by the [Global Biodiversity Information Facility API](http://www.gbif.org/).
 
 ## Installation
 
