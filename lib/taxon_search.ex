@@ -12,7 +12,7 @@ defmodule TaxonSearch do
   ## Parameters
 
     - common_name: String that represents the common name of the species
-      you're interested in.
+      you're interested in
 
   ## Examples
 
