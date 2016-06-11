@@ -50,7 +50,7 @@ defmodule TaxonSearch do
   end
 
   defp search_params do
-    %{limit: 50, nameType: "SCIENTIFIC"}
+    %{limit: 50, nameType: "SCIENTIFIC", rank: "SPECIES", status: "ACCEPTED"}
   end
 
   defp timeout_milliseconds do
