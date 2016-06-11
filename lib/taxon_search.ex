@@ -1,5 +1,5 @@
 defmodule TaxonSearch do
-  alias TaxonSearch.Utils
+  alias TaxonSearch.StringUtils
 
   def get_species_names(common_name, http_module \\ HTTPotion) do
     all_results = get_results(common_name, http_module)
@@ -27,8 +27,8 @@ defmodule TaxonSearch do
   end
 
   defp matching_english_name?(%{"language" => "eng", "vernacularName" => vernName}, name) do
-    Utils.get_token_regexes(name)
-    |> Utils.all_regexes_match?(vernName)
+    StringUtils.get_token_regexes(name)
+    |> StringUtils.all_regexes_match?(vernName)
   end
   defp matching_english_name?(_, _) do
     false

@@ -1,4 +1,4 @@
-defmodule TaxonSearch.Utils do
+defmodule TaxonSearch.StringUtils do
   def all_regexes_match?(regexes, str) do
     Enum.all?(regexes, fn(regex) -> str =~ regex end)
   end
