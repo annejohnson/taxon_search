@@ -8,25 +8,25 @@ defmodule TaxonSearch do
     end
   end
 
-  def get_result(common_name) do
+  defp get_result(common_name) do
     all_results = get_results(common_name) |> filter_by_name_type
     common_name_matches = filter_by_common_name(all_results, common_name)
     List.first(common_name_matches) || List.first(all_results)
   end
 
-  def filter_by_common_name(results, common_name) do
+  defp filter_by_common_name(results, common_name) do
     Enum.filter(results, fn(result) ->
       matching_common_name?(result, common_name)
     end)
   end
 
-  def filter_by_name_type(results) do
+  defp filter_by_name_type(results) do
     Enum.filter(results, fn(result) ->
       result["nameType"] =~ ~r/scientific/i
     end)
   end
 
-  def matching_common_name?(result, common_name) do
+  defp matching_common_name?(result, common_name) do
     name_maps = result["vernacularNames"] || []
     common_name_regexes = Utils.get_token_regexes(common_name)
     matching_english_name? = fn(name_map) ->
@@ -37,7 +37,7 @@ defmodule TaxonSearch do
     Enum.any?(name_maps, matching_english_name?)
   end
 
-  def get_results(common_name) do
+  defp get_results(common_name) do
     Poison.decode!(
       make_species_search_request(common_name).body
     )["results"]
