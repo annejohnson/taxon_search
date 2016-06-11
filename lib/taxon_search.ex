@@ -12,26 +12,10 @@ defmodule TaxonSearch do
     get_unique_species_names(results_to_use)
   end
 
-  defp get_unique_species_names(results) do
-    Enum.map(results, &get_species_name/1)
-    |> Enum.uniq
-  end
-
-  defp get_species_name(%{"species" => species}), do: species
-  defp get_species_name(_), do: nil
-
   defp filter_by_common_name(results, common_name) do
     Enum.filter results, fn(result) ->
       matching_common_name?(result, common_name)
     end
-  end
-
-  defp matching_english_name?(%{"language" => "eng", "vernacularName" => vernName}, name) do
-    StringUtils.get_token_regexes(name)
-    |> StringUtils.all_regexes_match?(vernName)
-  end
-  defp matching_english_name?(_, _) do
-    false
   end
 
   defp matching_common_name?(%{"vernacularNames": name_maps}, common_name) do
@@ -42,4 +26,20 @@ defmodule TaxonSearch do
   defp matching_common_name?(_, _) do
     false
   end
+
+  defp matching_english_name?(%{"language" => "eng", "vernacularName" => vernName}, name) do
+    StringUtils.get_token_regexes(name)
+    |> StringUtils.all_regexes_match?(vernName)
+  end
+  defp matching_english_name?(_, _) do
+    false
+  end
+
+  defp get_unique_species_names(results) do
+    Enum.map(results, &get_species_name/1)
+    |> Enum.uniq
+  end
+
+  defp get_species_name(%{"species" => species}), do: species
+  defp get_species_name(_), do: nil
 end
