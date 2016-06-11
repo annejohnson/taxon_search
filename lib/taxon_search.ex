@@ -1,18 +1,16 @@
 defmodule TaxonSearch do
   alias TaxonSearch.Utils
 
-  def get_species_name(common_name, http_module \\ HTTPotion) do
-    case get_result(common_name, http_module) do
-      %{"species" => species} -> species
-      _ -> nil
-    end
-  end
-
-  defp get_result(common_name, http_module) do
-    all_results = common_name
-                  |> get_results(http_module)
-    common_name_matches = filter_by_common_name(all_results, common_name)
-    List.first(common_name_matches) || List.first(all_results)
+  def get_species_names(common_name, http_module \\ HTTPotion) do
+    all_results = get_results(common_name, http_module)
+    filtered_results = filter_by_common_name(all_results, common_name)
+    results_to_use = if Enum.empty?(filtered_results) do
+                       all_results
+                     else
+                       filtered_results
+                     end
+    Enum.map(results_to_use, fn(result) -> result["species"] end)
+    |> Enum.uniq
   end
 
   defp filter_by_common_name(results, common_name) do
