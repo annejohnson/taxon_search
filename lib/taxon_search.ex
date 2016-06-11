@@ -49,7 +49,7 @@ defmodule TaxonSearch do
   defp make_species_search_request(query) do
     query_str = URI.encode(query) <> URI.encode("&limit=#{search_limit}")
     request_url = api_url <> "/species/search?q=" <> query_str
-    HTTPotion.get(request_url)
+    HTTPotion.get(request_url, [timeout: timeout_milliseconds])
   end
 
   defp api_url do
@@ -58,5 +58,9 @@ defmodule TaxonSearch do
 
   defp search_limit do
     50
+  end
+
+  defp timeout_milliseconds do
+    10_000
   end
 end
