@@ -1,6 +1,6 @@
 defmodule TaxonSearch.Utils do
   def get_token_regexes(str) do
-    get_string_tokens(str) |> Enum.map(&get_token_regex/1)
+    str |> get_string_tokens |> Enum.map(&get_token_regex/1)
   end
 
   def all_regexes_match?(regexes, str) do
