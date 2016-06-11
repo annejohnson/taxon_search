@@ -11,7 +11,6 @@ defmodule TaxonSearch do
   defp get_result(common_name, http_module) do
     all_results = common_name
                   |> get_results(http_module)
-                  |> filter_by_name_type
     common_name_matches = filter_by_common_name(all_results, common_name)
     List.first(common_name_matches) || List.first(all_results)
   end
@@ -19,12 +18,6 @@ defmodule TaxonSearch do
   defp filter_by_common_name(results, common_name) do
     Enum.filter results, fn(result) ->
       matching_common_name?(result, common_name)
-    end
-  end
-
-  defp filter_by_name_type(results) do
-    Enum.filter results, fn(result) ->
-      result["nameType"] =~ ~r/scientific/i
     end
   end
 
@@ -47,8 +40,8 @@ defmodule TaxonSearch do
   end
 
   defp make_species_search_request(query, http_module) do
-    query_str = "?" <> URI.encode_query(q: query, limit: search_limit)
-    request_url = api_url <> "/species/search" <> query_str
+    query_str = Map.merge(search_params, %{q: query}) |> URI.encode_query
+    request_url = api_url <> "/species/search?" <> query_str
     http_module.get(request_url, [timeout: timeout_milliseconds])
   end
 
@@ -56,8 +49,8 @@ defmodule TaxonSearch do
     "http://api.gbif.org/v1"
   end
 
-  defp search_limit do
-    50
+  defp search_params do
+    %{limit: 50, nameType: "SCIENTIFIC"}
   end
 
   defp timeout_milliseconds do
