@@ -1,16 +1,16 @@
 defmodule TaxonSearch do
   alias TaxonSearch.Utils
 
-  def get_species_name(common_name) do
-    case get_result(common_name) do
+  def get_species_name(common_name, http_module \\ HTTPotion) do
+    case get_result(common_name, http_module) do
       %{"species" => species} -> species
       _ -> nil
     end
   end
 
-  defp get_result(common_name) do
+  defp get_result(common_name, http_module) do
     all_results = common_name
-                  |> get_results
+                  |> get_results(http_module)
                   |> filter_by_name_type
     common_name_matches = filter_by_common_name(all_results, common_name)
     List.first(common_name_matches) || List.first(all_results)
@@ -39,17 +39,17 @@ defmodule TaxonSearch do
     Enum.any?(name_maps, matching_english_name?)
   end
 
-  defp get_results(common_name) do
-    response = make_species_search_request(common_name)
+  defp get_results(common_name, http_module) do
+    response = make_species_search_request(common_name, http_module)
     parsed_response_body = Poison.decode!(response.body)
 
     parsed_response_body["results"]
   end
 
-  defp make_species_search_request(query) do
+  defp make_species_search_request(query, http_module) do
     query_str = URI.encode(query) <> URI.encode("&limit=#{search_limit}")
     request_url = api_url <> "/species/search?q=" <> query_str
-    HTTPotion.get(request_url, [timeout: timeout_milliseconds])
+    http_module.get(request_url, [timeout: timeout_milliseconds])
   end
 
   defp api_url do
