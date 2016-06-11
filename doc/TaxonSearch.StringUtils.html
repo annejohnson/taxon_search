@@ -1,0 +1,270 @@
+    <!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="ExDoc v0.11.5">
+    <title>TaxonSearch.StringUtils – taxon_search v0.0.1</title>
+    <link rel="stylesheet" href="dist/app-ddd9717ad9.css" />
+    
+    <script src="dist/sidebar_items.js"></script>
+  </head>
+  <body data-type="modules">
+
+    <div class="main">
+<button class="sidebar-toggle">
+  <i class="icon-menu"></i>
+</button>
+<section class="sidebar">
+  <button class="sidebar-toggle">
+    <i class="icon-menu"></i>
+  </button>
+
+  
+  <a href="api-reference.html" class="sidebar-projectLink">
+    <div class="sidebar-projectDetails">
+      <h1 class="sidebar-projectName">
+        taxon_search
+      </h1>
+      <h2 class="sidebar-projectVersion">
+        v0.0.1
+      </h2>
+    </div>
+    
+  </a>
+
+  <div class="sidebar-search">
+    <i class="icon-search"></i>
+    <input type="text" class="sidebar-searchInput" placeholder="search" autocomplete="off" />
+  </div>
+
+  <ul class="sidebar-listNav">
+    <li><a id="extras-list" href="#full-list">Pages</a></li>
+
+    
+      <li><a id="modules-list" href="#full-list">Modules</a></li>
+    
+
+    
+
+    
+  </ul>
+
+  <ul id="full-list" class="sidebar-fullList"></ul>
+  <div class="sidebar-noResults"></div>
+</section>
+
+<section class="content">
+  <div id="content" class="content-inner">
+
+
+      <h1>
+        <small class="visible-xs">taxon_search v0.0.1</small>
+        TaxonSearch.StringUtils
+        
+        
+      </h1>
+
+      
+        <section id="moduledoc" class="docstring">
+          <p>Provides functions to help with tokenizing strings, generating regexes from
+string tokens, and matching phrases against sets of string tokens.</p>
+<p>A token is defined as a series of alphanumeric characters separated from other
+tokens by whitespace or punctuation.</p>
+
+        </section>
+      
+
+      
+        <section id="summary" class="details-list">
+          <h1 class="section-heading">
+            <a class="hover-link" href="#summary">
+              <i class="icon-link"></i>
+            </a>
+            Summary
+          </h1>
+          
+
+          
+  <div class="summary-functions summary">
+    <h2>
+      <a href="#functions">Functions</a>
+    </h2>
+    <div class="summary-row">
+  <div class="summary-signature">
+    <a href="#all_regexes_match?/2">all_regexes_match?(regexes, str)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Returns true if <code class="inline">str</code> matches against all of the <code class="inline">regexes</code></p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#get_string_tokens/1">get_string_tokens(str)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Returns a collection of the tokens in <code class="inline">str</code></p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#get_token_regex/1">get_token_regex(str)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Returns a case-insenstive regular expression generated from <code class="inline">str</code></p>
+</div>
+  
+</div>
+<div class="summary-row">
+  <div class="summary-signature">
+    <a href="#get_token_regexes/1">get_token_regexes(str)</a>
+  </div>
+  
+    <div class="summary-synopsis"><p>Returns a collection of case-insensitive regexes, one for each token in <code class="inline">str</code></p>
+</div>
+  
+</div>
+
+  </div>
+
+
+          
+
+          
+
+        </section>
+      
+
+      
+
+      
+        <section id="functions" class="details-list">
+          <h1 class="section-heading">
+            <a class="hover-link" href="#functions">
+              <i class="icon-link"></i>
+            </a>
+            Functions
+          </h1>
+          <div class="detail" id="all_regexes_match?/2">
+  <div class="detail-header">
+    <a href="#all_regexes_match?/2" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">all_regexes_match?(regexes, str)</span>
+      
+  </div>
+  
+  <section class="docstring">
+    <p>Returns true if <code class="inline">str</code> matches against all of the <code class="inline">regexes</code>.</p>
+<h2>Parameters</h2>
+<ul>
+<li>regexes: Collection of regular expressions
+</li>
+<li>str: String to match against the <code class="inline">regexes</code>
+</li>
+</ul>
+<h2>Examples</h2>
+<pre><code class="iex elixir">iex&gt; TaxonSearch.StringUtils.all_regexes_match?([&quot;Hello&quot;, &quot;world&quot;], &quot;Hello, world&quot;)
+true
+
+iex&gt; TaxonSearch.StringUtils.all_regexes_match?([&quot;Goodbye&quot;, &quot;world&quot;], &quot;Hello, world&quot;)
+false</code></pre>
+
+  </section>
+</div>
+<div class="detail" id="get_string_tokens/1">
+  <div class="detail-header">
+    <a href="#get_string_tokens/1" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">get_string_tokens(str)</span>
+      
+  </div>
+  
+  <section class="docstring">
+    <p>Returns a collection of the tokens in <code class="inline">str</code>.</p>
+<h2>Parameters</h2>
+<ul>
+<li>str: String to split into tokens
+</li>
+</ul>
+<h2>Examples</h2>
+<pre><code class="iex elixir">iex&gt; TaxonSearch.StringUtils.get_string_tokens(&quot;Red-headed monkey  &quot;)
+[&quot;Red&quot;, &quot;headed&quot;, &quot;monkey&quot;]</code></pre>
+
+  </section>
+</div>
+<div class="detail" id="get_token_regex/1">
+  <div class="detail-header">
+    <a href="#get_token_regex/1" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">get_token_regex(str)</span>
+      
+  </div>
+  
+  <section class="docstring">
+    <p>Returns a case-insenstive regular expression generated from <code class="inline">str</code>.</p>
+<h2>Parameters</h2>
+<ul>
+<li>str: String to convert into a case-insensitive regular expression
+</li>
+</ul>
+<h2>Examples</h2>
+<pre><code class="iex elixir">iex&gt; TaxonSearch.StringUtils.get_token_regex(&quot;Red&quot;)
+~r/Red/i</code></pre>
+
+  </section>
+</div>
+<div class="detail" id="get_token_regexes/1">
+  <div class="detail-header">
+    <a href="#get_token_regexes/1" class="detail-link" title="Link to this function">
+      <i class="icon-link"></i>
+    </a>
+    <span class="signature">get_token_regexes(str)</span>
+      
+  </div>
+  
+  <section class="docstring">
+    <p>Returns a collection of case-insensitive regexes, one for each token in <code class="inline">str</code>.</p>
+<h2>Parameters</h2>
+<ul>
+<li>str: String to split into token regexes
+</li>
+</ul>
+<h2>Examples</h2>
+<pre><code class="iex elixir">iex&gt; TaxonSearch.StringUtils.get_token_regexes(&quot;Red-headed monkey  &quot;)
+[~r/Red/i, ~r/headed/i, ~r/monkey/i]</code></pre>
+
+  </section>
+</div>
+
+        </section>
+      
+
+      
+
+      
+        <footer class="footer">
+      <p>
+        <span class="line">
+          Built using
+          <a href="https://github.com/elixir-lang/ex_doc" title="ExDoc" rel="help" target="_blank">ExDoc</a> (v0.11.5),
+        </span>
+        <span class="line">
+          designed by
+          <a href="https://twitter.com/dignifiedquire" target="_blank" title="@dignifiedquire">Friedel Ziegelmayer</a>.
+          </span>
+      </p>
+      <button class="night-mode-toggle" />
+    </footer>
+  </div>
+</section>
+</div>
+  <script src="dist/app-918614602f.js"></script>
+  </body>
+</html>
+
