@@ -1,20 +1,21 @@
 # TaxonSearch
 
-**TODO: Add description**
+TaxonSearch is a tool for looking up species names by common name in Elixir.
 
 ## Installation
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed as:
+1. Add taxon_search to your list of dependencies in `mix.exs`:
 
-  1. Add taxon_search to your list of dependencies in `mix.exs`:
+```elixir
+def deps do
+  [{:taxon_search, "~> 0.0.1"}]
+end
+```
 
-        def deps do
-          [{:taxon_search, "~> 0.0.1"}]
-        end
+2. Ensure taxon_search is started before your application:
 
-  2. Ensure taxon_search is started before your application:
-
-        def application do
-          [applications: [:taxon_search]]
-        end
-
+```elixir
+def application do
+  [applications: [:taxon_search]]
+end
+```
