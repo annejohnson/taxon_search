@@ -47,8 +47,8 @@ defmodule TaxonSearch do
   end
 
   defp make_species_search_request(query, http_module) do
-    query_str = URI.encode(query) <> URI.encode("&limit=#{search_limit}")
-    request_url = api_url <> "/species/search?q=" <> query_str
+    query_str = "?" <> URI.encode_query(q: query, limit: search_limit)
+    request_url = api_url <> "/species/search" <> query_str
     http_module.get(request_url, [timeout: timeout_milliseconds])
   end
 
