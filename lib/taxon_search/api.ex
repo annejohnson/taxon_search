@@ -1,4 +1,6 @@
 defmodule TaxonSearch.Api do
+  @moduledoc false
+
   def get_results(common_name, http_module \\ HTTPotion) do
     response = make_species_search_request(common_name, http_module)
     parsed_response_body = Poison.decode!(response.body)
